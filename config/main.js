@@ -19,7 +19,7 @@ module.exports = {
     require('trailpack-core'),
     require('trailpack-repl'),
     require('trailpack-router'),
-    require('trailpack-express4'),
+    require('trailpack-express'),
     require('trailpack-sequelize'),
     require('trailpack-gulp'),
     require('trailpack-footprints')
