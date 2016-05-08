@@ -1,23 +1,19 @@
 import { Injectable } from 'angular2/core';
-
+import {Http} from 'angular2/http';
+import 'rxjs/Rx';
 import { Hero } from './hero';
 import { HEROES } from './mock-heroes';
 
 @Injectable()
 export class HeroService {
-  getHeroes() {
-    return Promise.resolve(HEROES);
-  }
 
-  getHeroesSlowly() {
-    return new Promise<Hero[]>(resolve =>
-      setTimeout(()=>resolve(HEROES), 2000) // 2 seconds
-    );
+  constructor(private _http: Http) {}
+
+  getHeroes() {
+    return this._http.get('http://localhost:3000/api/v1/hero').map(res => res.json()).toPromise();
   }
 
   getHero(id: number) {
-    return Promise.resolve(HEROES).then(
-      heroes => heroes.filter(hero => hero.id === id)[0]
-    );
+    return this._http.get('http://localhost:3000/api/v1/hero/'+id).map(res => res.json()).toPromise();
   }
 }

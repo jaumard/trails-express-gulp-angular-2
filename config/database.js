@@ -27,15 +27,16 @@ module.exports = {
      * run "npm install --save waterline-sqlite3"
      */
 
-    dev: {
-      adapter: require('waterline-sqlite3'),
-      migrate: 'alter'
+    sqlitedev: {
+      database: 'dev',
+      storage: './.tmp/dev.sqlite',
+      host: '127.0.0.1',
+      dialect: 'sqlite'
     }
-
   },
 
   models: {
-    defaultStore: 'dev',
+    defaultStore: 'sqlitedev',
     migrate: 'alter'
   }
 }

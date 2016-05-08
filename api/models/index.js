@@ -1,3 +1,2 @@
 'use strict'
-
-exports.User = require('./User')
+exports.Hero = require('./Hero')

@@ -3,6 +3,7 @@ const path = require('path')
 const gulp = require('gulp')
 const typescript = require('gulp-typescript')
 const del = require('del')
+const watch = require('gulp-watch')
 const sourcemaps = require('gulp-sourcemaps')
 const src = 'assets'
 const tscConfig = require(path.join(process.cwd(), src,'tsconfig.json'))
@@ -13,17 +14,21 @@ module.exports = {
   defaultTaskName: 'default',
 
   tasks: {
-    default: ['compile', 'copyLibs', 'copyAssets'],
+    default: ['compile', 'copyLibs', 'copyAssets', 'watch'],
     production: ['clean'],
 
     clean: () => {
       return del(dest)
     },
+    watch: () => {
+      const tscSource = path.join(src, 'app', '**', '*.ts')
+      return gulp.watch(tscSource, ['compile'])
+    },
     compile: {
-      dependsOf: ['clean'],
       task: () => {
+        const tscSource = path.join(src, 'app', '**', '*.ts')
         return gulp
-          .src(path.join(src, 'app', '**', '*.ts'))
+          .src(tscSource)
           .pipe(sourcemaps.init())          // <--- sourcemaps
           .pipe(typescript(tscConfig.compilerOptions))
           .pipe(sourcemaps.write('.'))      // <--- sourcemaps
@@ -41,7 +46,8 @@ module.exports = {
             'node_modules/systemjs/dist/system.src.js',
             'node_modules/rxjs/bundles/Rx.js',
             'node_modules/angular2/bundles/angular2.dev.js',
-            'node_modules/angular2/bundles/router.dev.js'
+            'node_modules/angular2/bundles/router.dev.js',
+            'node_modules/angular2/bundles/http.dev.js'
           ])
           .pipe(gulp.dest(path.join(dest, 'lib')))
       }

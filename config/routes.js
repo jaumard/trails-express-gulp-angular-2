@@ -10,6 +10,13 @@
 'use strict'
 
 module.exports = [
-
-
+  {
+    method: 'GET',
+    path: '/{action}',
+    handler: 'DefaultController.all'
+  }, {
+    method: 'GET',
+    path: '/{action}/{id}',
+    handler: 'DefaultController.all'
+  }
 ]
