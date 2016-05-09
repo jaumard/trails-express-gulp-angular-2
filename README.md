@@ -16,4 +16,4 @@ Data fixtures are created by [trailpack-bootstrap](https://github.com/trailsjs/t
 
 ### Usage
 
-Just clone this repo and install dependencies with `npm i` then start the server `npm start` and enjoy on http://localhost:3000
+Just clone this repo and install dependencies with `npm i` then start the server `npm start` and enjoy on [http://localhost:3000](http://localhost:3000)
