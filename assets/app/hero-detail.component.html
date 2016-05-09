@@ -1,10 +1,11 @@
 <div *ngIf="hero">
   <h2>{{hero.name}} details!</h2>
-  <div>
+  <div *ngIf="hero.id!=-1">
     <label>id: </label>{{hero.id}}</div>
   <div>
     <label>name: </label>
     <input [(ngModel)]="hero.name" placeholder="name" />
   </div>
   <button (click)="goBack()">Back</button>
+  <button (click)="saveHero()">Save</button>
 </div>

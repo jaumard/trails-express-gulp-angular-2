@@ -8,28 +8,43 @@ import { HeroService } from './hero.service';
 @Component({
   selector: 'my-heroes',
   templateUrl: 'app/heroes.component.html',
-  styleUrls:  ['app/heroes.component.css'],
+  styleUrls: ['app/heroes.component.css'],
   directives: [HeroDetailComponent]
 })
 export class HeroesComponent implements OnInit {
-  heroes: Hero[];
-  selectedHero: Hero;
+  heroes:Hero[];
+  selectedHero:Hero;
 
-  constructor(
-    private _router: Router,
-    private _heroService: HeroService) { }
+  constructor(private _router:Router,
+              private _heroService:HeroService) {
+  }
 
   getHeroes() {
-    this._heroService.getHeroes().then(heroes => this.heroes = heroes);
+    this.selectedHero = null;
+    this._heroService.getHeroes().then(heroes => this.heroes = heroes).catch(err => {
+      alert('Can\'t retrieve data from server');
+    });
   }
 
   ngOnInit() {
     this.getHeroes();
   }
 
-  onSelect(hero: Hero) { this.selectedHero = hero; }
+  onSelect(hero:Hero) {
+    this.selectedHero = hero;
+  }
 
   gotoDetail() {
-    this._router.navigate(['HeroDetail', { id: this.selectedHero.id }]);
+    this._router.navigate(['HeroDetail', {id: this.selectedHero.id}]);
+  }
+
+  gotoNewDetail() {
+    this._router.navigate(['HeroDetail', {id: -1}]);
+  }
+
+  deleteHero() {
+    this._heroService.deleteHero(this.selectedHero.id).then(_ => this.getHeroes()).catch(err => {
+      alert('Can\'t delete this hero');
+    });
   }
 }

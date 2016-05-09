@@ -21,10 +21,11 @@ module.exports = {
       return del(dest)
     },
     watch: () => {
-      const tscSource = path.join(src, 'app', '**', '*.ts')
-      return gulp.watch(tscSource, ['compile'])
+      const tscSource = path.join(src, 'app', '**', '*')
+      return gulp.watch(tscSource, ['compile', 'copyLibs', 'copyAssets'])
     },
     compile: {
+      dependsOf: ['clean'],
       task: () => {
         const tscSource = path.join(src, 'app', '**', '*.ts')
         return gulp
